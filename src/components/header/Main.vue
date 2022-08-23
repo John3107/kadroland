@@ -1,18 +1,18 @@
 <template>
   <div class="header">
-    <Main/>
+    <HeaderHead/>
     <Navigation/>
   </div>
 </template>
 
 <script>
-import Main from './main/Main'
-import Navigation from './navigation/Navigation'
+import HeaderHead from './HeaderHead'
+import Navigation from './Navigation'
 
 export default {
   name: 'App-Header',
   components: {
-    Main,
+    HeaderHead,
     Navigation
   }
 }

@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import Header from './components/header/Header'
+import Header from './components/header/Main'
 import Body from './components/body/Body'
 
 export default {
@@ -19,7 +19,17 @@ export default {
 </script>
 
 <style scoped>
-.app {
-  font-family: 'Roboto', sans-serif;
+.app{
+  font-family: 'Roboto-Regular', sans-serif;
+}
+@font-face {
+  font-family: "Roboto-Regular";
+  src: local("Roboto-Regular"),
+  url(../src/fonts/Roboto-Regular.ttf) format("truetype");
+}
+@font-face {
+  font-family: "Roboto-Light";
+  src: local("Roboto-Light"),
+  url(../src/fonts/Roboto-Light.ttf) format("truetype");
 }
 </style>

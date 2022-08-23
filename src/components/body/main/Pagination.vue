@@ -1,26 +1,54 @@
 <template>
   <div class="pagination">
-    <div class="arrow-section"><img :src="require('@/assets/arrow-left.svg')" alt="arrow-left"/></div>
-    <div class="pagination-body"
-         :style="{color: item.isActive && '#ED3434',
+    <div class="arrow-section" @click="changePageArrow('back')">
+      <img :src="require('@/assets/arrow-left.svg')" alt="arrow-left"/>
+    </div>
+    <div class="pagination-body" @click="changePageNum(item.num)"
+         :style="{color: item.isActive ? '#ED3434' : '#000',
          background: typeof item.num === 'string' && '#FFF'}"
          v-for="item in pagination"
          :key="item.num">{{ item.num }}
     </div>
-    <div class="arrow-section"><img :src="require('@/assets/arrow-right.svg')" alt="arrow-right"/></div>
+    <div class="arrow-section" @click="changePageArrow('next')">
+      <img :src="require('@/assets/arrow-right.svg')" alt="arrow-right"/>
+    </div>
   </div>
 </template>
 
 <script>
-import {mapGetters} from 'vuex'
+import {mapGetters, mapMutations} from 'vuex'
 
 export default {
   name: 'App-Body-Main-Pagination',
-  components: {},
   computed: {
     ...mapGetters({
       pagination: "getPagination"
     })
+  },
+  methods: {
+    ...mapMutations(['setPagination']),
+    changePageNum(numPage) {
+      const falseElements = this.pagination.map(el => ({...el, isActive: false}))
+      const willChange = falseElements.map(el => el.num === numPage ? ({...el, isActive: !el.isActive}) : el)
+      this.setPagination(willChange)
+    },
+    changePageArrow(model) {
+      const numVideos = this.pagination.find(el => el.isActive)
+      const falseElements = this.pagination.map(el => ({...el, isActive: false}))
+      let willChange
+      if (model === 'back') {
+        if (numVideos.num > 1 && numVideos.num < 10) {
+          falseElements[numVideos.num - 2].isActive = true
+          willChange = falseElements.map(el => el)
+        }
+      } else {
+        if (numVideos.num < 3) {
+          falseElements[numVideos.num].isActive = true
+          willChange = falseElements.map(el => el)
+        }
+      }
+      willChange && this.setPagination(willChange)
+    }
   }
 }
 </script>

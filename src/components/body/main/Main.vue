@@ -2,7 +2,9 @@
   <div class="main">
     <div class="title">Усі відео</div>
     <FilterMenu/>
-    <div class="show-more">
+    <GridView :data="paginationVideos" v-if="appearance === 'grid'"/>
+    <ListView :data="paginationVideos" v-else/>
+    <div class="show-more" @click="videosCount += 1">
       <img :src="require('@/assets/show-more-icon.svg')" alt="show more"/>
       <span class="show-more-text">Показати ще...</span>
     </div>
@@ -13,18 +15,41 @@
 <script>
 import FilterMenu from './FilterMenu'
 import Pagination from './Pagination'
+import GridView from './gridView/GridView'
+import ListView from './listView/ListView'
+import {mapGetters, mapActions} from 'vuex'
 
 export default {
   name: 'App-Body-Main',
   components: {
     FilterMenu,
-    Pagination
+    Pagination,
+    ListView,
+    GridView
   },
-  // computed: {
-  //   ...mapGetters({
-  //     categories: "getCategories"
-  //   })
-  // }
+  data(){
+    return{
+      videosCount: 1
+    }
+  },
+  mounted() {
+    this.fetchVideos()
+  },
+  computed: {
+    ...mapGetters({
+      videos: "getVideos",
+      appearance: "getAppearance",
+      pagination: "getPagination"
+    }),
+    paginationVideos() {
+      const numVideos = this.pagination.find(el => el.isActive)
+      if (numVideos.num <= 3) return this.videos.slice(6 * numVideos.num - 6, (6 * numVideos.num) * this.videosCount)
+      return []
+    }
+  },
+  methods: {
+    ...mapActions(["fetchVideos"])
+  }
 }
 </script>
 
@@ -32,7 +57,7 @@ export default {
 .main {
   display: flex;
   flex-direction: column;
-  width: 75%;
+  width: 100%;
 }
 
 .title {
@@ -49,7 +74,8 @@ export default {
   display: inherit;
   justify-content: center;
   align-items: center;
-  margin: 64px 0 29px;
+  margin: 40px 0 29px;
+  cursor: pointer;
 }
 
 .show-more-text {

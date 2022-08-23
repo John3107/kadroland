@@ -22,23 +22,22 @@ export default {
 .navigation {
   display: flex;
   background: #414141;
-  padding: 0 10.4%;
+  padding: 0 10.4% 0 9.6%;
   align-items: center;
 }
 
 .sections {
+  font-family: 'Roboto-Light', sans-serif;
+  white-space: nowrap;
   padding: 18px 12px;
   font-weight: 300;
   font-size: 16px;
   line-height: 150%;
   color: #FFF;
+  cursor: pointer;
 }
 
-:first-child {
-  padding-left: 0;
-}
-
-.sections:last-of-type {
+.sections:hover {
   background: #ED3434;
 }
 
@@ -55,5 +54,11 @@ export default {
   font-weight: 500;
   font-size: 18px;
   line-height: 150%;
+}
+
+@media (max-width: 1000px) {
+  .navigation {
+    display: none;
+  }
 }
 </style>

@@ -32,6 +32,7 @@ export default {
 .category-container {
   display: flex;
   align-items: center;
+  width: 206px;
   justify-content: space-between;
   padding: 8px 8px 8px 16px;
   background: #E5E5E5;
@@ -59,6 +60,7 @@ export default {
 }
 
 .section {
+  font-family: 'Roboto-Light', sans-serif;
   font-weight: 300;
   font-size: 14px;
   line-height: 150%;
