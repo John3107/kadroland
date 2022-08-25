@@ -11,9 +11,11 @@
     <img :src="require('@/assets/profile-icon.svg')" alt="profile" class="profile"/>
     <span class="e-mail">person@gmail.com</span>
     <img :src="require('@/assets/notification.svg')" alt="notification" class="notification"/>
+    <transition name="slide">
     <div class="sidebar" v-if="isOpenSidebar">
       <span v-for="(section, key) in sections" :key="key" @click="isOpenSidebar = false">{{ section }}</span>
     </div>
+    </transition>
     <div v-if="isOpenSidebar" class="outside" @click="isOpenSidebar = false"></div>
   </div>
 </template>
@@ -127,7 +129,12 @@ export default {
   color: #FFF;
   z-index: 11;
 }
-
+.slide-enter-active {
+  animation: openSidebar .3s linear;
+}
+.slide-leave-active {
+  animation: closeSidebar .3s linear;
+}
 .sidebar span {
   font-family: 'Roboto-Light', sans-serif;
   margin: 5px 0;
@@ -150,6 +157,24 @@ export default {
   width: 100%;
   height: 1800px;
   z-index: 10;
+}
+
+@keyframes openSidebar {
+  0% {
+    left: -38%;
+  }
+  100% {
+    left: 0;
+  }
+}
+
+@keyframes closeSidebar {
+  0% {
+    left: 0;
+  }
+  100% {
+    left: -38%;
+  }
 }
 
 @media (min-width: 1001px) {
