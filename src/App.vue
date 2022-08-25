@@ -19,14 +19,16 @@ export default {
 </script>
 
 <style scoped>
-.app{
+.app {
   font-family: 'Roboto-Regular', sans-serif;
 }
+
 @font-face {
   font-family: "Roboto-Regular";
   src: local("Roboto-Regular"),
   url(../src/fonts/Roboto-Regular.ttf) format("truetype");
 }
+
 @font-face {
   font-family: "Roboto-Light";
   src: local("Roboto-Light"),

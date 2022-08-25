@@ -27,8 +27,8 @@ export default {
     ListView,
     GridView
   },
-  data(){
-    return{
+  data() {
+    return {
       videosCount: 1
     }
   },

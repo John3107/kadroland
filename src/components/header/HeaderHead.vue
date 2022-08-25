@@ -145,7 +145,7 @@ export default {
   background: #ED3434;
 }
 
-.outside{
+.outside {
   position: absolute;
   width: 100%;
   height: 1800px;

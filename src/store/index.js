@@ -9,32 +9,20 @@ export default new Vuex.Store({
         categories: [
             {
                 title: 'відео', context: [
-                    'Усі відео (456)',
-                    'Мої відео (15)',
-                    'Безкоштовно (45)',
-                    'Новинки (34)',
-                    'Останні переглянуті (32)',
-                    'Мої обрані (14)'
+                    {theme: 'all_videos', title: 'Усі відео', data: [], isActive: true},
+                    {theme: 'business_trips', title: 'Відрядження', data: [], isActive: false},
+                    {theme: 'currency', title: 'Гроші', data: [], isActive: false},
+                    {theme: 'production', title: 'Виробництва', data: [], isActive: false},
+                    {theme: 'excise_tax', title: 'Акцизний податок', data: [], isActive: false},
+                    {theme: 'vacation', title: 'Відпустка', data: [], isActive: false}
                 ], isVideo: true, isRedirect: true
             },
-            {
-                title: 'КОНСУЛЬТАЦІЇ', context: [], isVideo: false, isRedirect: true,
-            },
-            {
-                title: 'ДОКУМЕНТИ', context: [], isVideo: false, isRedirect: false,
-            },
-            {
-                title: 'ТЕМИ', context: [], isVideo: false, isRedirect: true,
-            },
-            {
-                title: 'Автоматизація', context: [], isVideo: false, isRedirect: true,
-            },
-            {
-                title: 'Лектори', context: [], isVideo: false, isRedirect: true,
-            },
-            {
-                title: 'Рубрики', context: [], isVideo: false, isRedirect: true,
-            }
+            {title: 'КОНСУЛЬТАЦІЇ', context: [], isRedirect: true},
+            {title: 'ДОКУМЕНТИ', context: [], isRedirect: false},
+            {title: 'ТЕМИ', context: [], isRedirect: true},
+            {title: 'Автоматизація', context: [], isRedirect: true},
+            {title: 'Лектори', context: [], isRedirect: true},
+            {title: 'Рубрики', context: [], isRedirect: true}
         ],
         pagination: [
             {num: 1, isActive: true},
@@ -58,7 +46,7 @@ export default new Vuex.Store({
         setVideos: (state, payload) => state.videos = payload,
         setDefaultVideos: (state, payload) => state.defaultVideos = payload,
         setInitialAppearance: (state) => {
-            if(localStorage.getItem('appearance-videos')) {
+            if (localStorage.getItem('appearance-videos')) {
                 state.appearance = localStorage.getItem('appearance-videos')
             } else {
                 localStorage.setItem('appearance-videos', 'grid')
@@ -66,12 +54,27 @@ export default new Vuex.Store({
             }
         },
         setChangeAppearance: (state, payload) => {
-                localStorage.setItem('appearance-videos', payload)
-                state.appearance = payload
+            localStorage.setItem('appearance-videos', payload)
+            state.appearance = payload
         },
         setPagination: (state, payload) => state.pagination = payload,
         setSearchVideo: (state, payload) => {
             state.videos = state.defaultVideos.filter(el => el.title.toLowerCase().includes(payload.toLowerCase()))
+        },
+        setFilteredByThemesVideos: (state, payload) => {
+            state.categories[0].context.forEach(el => el.data = payload.filter(item => item.theme === el.theme))
+            state.categories[0].context[0].data = payload
+        },
+        setSelectedTheme: (state, payload) => state.videos = payload,
+        setSelectedCategory: (state, payload) => state.categories[0].context = payload,
+        setFilteredVideos: (state, payload) => {
+            if (payload === 'Популярні') {
+                state.videos = state.defaultVideos.filter(el => el.options.popular)
+            } else if (payload === 'За рейтингом') {
+                state.videos = state.defaultVideos.filter(el => el.options.sale)
+            } else {
+                state.videos = state.defaultVideos.filter(el => el.date.split('-')[1] === '07')
+            }
         }
     },
     actions: {
@@ -82,6 +85,7 @@ export default new Vuex.Store({
             const videos = await res.json()
             ctx.commit('setVideos', videos)
             ctx.commit('setDefaultVideos', videos)
+            ctx.commit('setFilteredByThemesVideos', videos)
         }
     }
 });

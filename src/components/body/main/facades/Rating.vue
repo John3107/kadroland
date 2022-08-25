@@ -1,25 +1,25 @@
 <template>
-    <div class="rating">
-      <span class="rating-num">5.0</span>
-      <img :src="require('@/assets/stars.svg')" alt="stars"/>
-      <span class="rating-voices">(231)</span>
-    </div>
+  <div class="rating">
+    <span class="rating-num">5.0</span>
+    <img :src="require('@/assets/stars.svg')" alt="stars"/>
+    <span class="rating-voices">(231)</span>
+  </div>
 </template>
 
 <script>
 
 export default {
-  name: 'App-Body-Main-Facades-Rating',
+  name: 'App-Body-Main-Facades-Rating'
 }
 </script>
 
 <style scoped>
-.rating{
+.rating {
   display: flex;
   align-items: center;
 }
 
-.rating-num{
+.rating-num {
   font-weight: 300;
   font-size: 26px;
   line-height: 150%;
@@ -27,7 +27,7 @@ export default {
   margin-right: 6px;
 }
 
-.rating-voices{
+.rating-voices {
   font-weight: 300;
   font-size: 16px;
   line-height: 150%;

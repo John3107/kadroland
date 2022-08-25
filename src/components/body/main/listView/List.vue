@@ -25,7 +25,6 @@ export default {
   },
   computed: {
     dateUK() {
-      console.log(this.data.access)
       return new Date(this.data.date).toLocaleString('uk', {
         year: 'numeric',
         month: 'long',

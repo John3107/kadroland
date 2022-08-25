@@ -23,32 +23,32 @@ export default {
   grid-column-gap: 2.6rem;
 }
 
-@media(max-width: 1275px) {
+@media (max-width: 1275px) {
   .grid-view {
     grid-column-gap: 1rem;
   }
 }
 
-@media(max-width: 1235px) {
+@media (max-width: 1235px) {
   .grid-view {
     grid-template-columns: repeat(2, 255px);
     grid-column-gap: 12rem;
   }
 }
 
-@media(max-width: 1130px) {
+@media (max-width: 1130px) {
   .grid-view {
     grid-column-gap: 3rem;
   }
 }
 
-@media(max-width: 960px) {
+@media (max-width: 960px) {
   .grid-view {
     grid-column-gap: 1rem;
   }
 }
 
-@media(max-width: 920px) {
+@media (max-width: 920px) {
   .grid-view {
     display: flex;
     flex-direction: column;

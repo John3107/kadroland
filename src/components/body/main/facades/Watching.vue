@@ -1,11 +1,11 @@
 <template>
-      <div class="to-see-box">
-        <div class="to-see-text" v-if="isAccess">дивитися</div>
-        <div class="to-see-text" v-else>придбати</div>
-        <div class="to-see-icon">
-          <img :src="require('@/assets/arrow-right-white.svg')" alt="arrow right"/>
-        </div>
-      </div>
+  <div class="to-see-box">
+    <div class="to-see-text" v-if="isAccess">дивитися</div>
+    <div class="to-see-text" v-else>придбати</div>
+    <div class="to-see-icon">
+      <img :src="require('@/assets/arrow-right-white.svg')" alt="arrow right"/>
+    </div>
+  </div>
 </template>
 
 <script>

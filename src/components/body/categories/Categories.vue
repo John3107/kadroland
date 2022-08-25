@@ -31,7 +31,7 @@ export default {
   margin-right: 32px;
 }
 
-@media(max-width: 768px) {
+@media (max-width: 768px) {
   .categories {
     display: none;
   }

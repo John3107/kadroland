@@ -5,22 +5,42 @@
         <img :src="require(data.isVideo ? '@/assets/is-video.svg' : '@/assets/isnt-video.svg')" alt="video icon"/>
         <span class="title">{{ data.title }}</span>
       </div>
-      <img v-if="data.isRedirect"
-           :src="require(data.context[0]
-    ? '@/assets/arrow-down.svg'
-    : '@/assets/arrow-right.svg')"
-           alt="context icon"/>
+      <div v-if="data.isRedirect">
+        <ArrowDown v-if="data.context[0]"/>
+        <img v-else :src="require('@/assets/arrow-right.svg')" alt="context icon"/>
+      </div>
     </div>
     <div v-if="data.context[0]" class="context">
-      <div v-for="(section, key) in data.context" :key="key" class="section">{{ section }}</div>
+      <div v-for="(section, key) in data.context" :key="key"
+           class="section"
+           @click="changeTheme(section)"
+           :style="{color: section.isActive ? '#ED3434' : '#232323'}">
+        {{ section.title + ` (${section.data.length})` }}
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import {mapMutations} from 'vuex'
+import ArrowDown from "@/icons/ArrowDown"
+
 export default {
   name: 'App-Body-Categories-Category',
-  props: ['data']
+  props: ['data'],
+  components: {
+    ArrowDown
+  },
+  methods: {
+    ...mapMutations(['setSelectedTheme', 'setSelectedCategory']),
+    changeTheme(section) {
+      this.setSelectedTheme(section.data)
+      const categoriesUpdated = this.data.context.map(el => el.theme === section.theme
+          ? ({...el, isActive: true})
+          : ({...el, isActive: false}))
+      this.setSelectedCategory(categoriesUpdated)
+    }
+  }
 }
 </script>
 
@@ -66,9 +86,10 @@ export default {
   line-height: 150%;
   color: #232323;
   margin: 4px;
+  cursor: pointer;
 }
 
-.section:first-of-type {
+.section {
   color: #ED3434;
 }
 </style>
